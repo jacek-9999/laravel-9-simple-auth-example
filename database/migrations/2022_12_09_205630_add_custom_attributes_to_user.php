@@ -18,6 +18,7 @@ return new class extends Migration
             $table->boolean('active');
             $table->boolean('verified');
             $table->foreignId('company_id')
+                ->nullable()
                 ->constrained('companies');
         });
     }
