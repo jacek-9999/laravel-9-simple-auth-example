@@ -33,6 +33,7 @@ return new class extends Migration
             $table->dropColumn('role');
             $table->dropColumn('active');
             $table->dropColumn('verified');
+            $table->dropForeign(['company_id']);
             $table->dropColumn('company_id');
         });
     }
