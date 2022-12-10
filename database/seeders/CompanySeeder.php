@@ -17,7 +17,6 @@ class CompanySeeder extends Seeder
     {
         DB::table('companies')->insert([
             'name' => 'PuertaLogic',
-            'active' => true,
             'created_at' => now()
         ]);
     }

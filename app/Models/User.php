@@ -45,4 +45,27 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function activateCompany()
+    {
+        if (!$this->company) {
+            return false;
+        }
+        $this->company->active = true;
+        return $this->company->save();
+    }
+
+    public function deactivateCompany()
+    {
+        if (!$this->company) {
+            return false;
+        }
+        $this->company->active = false;
+        return $this->company->save();
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }

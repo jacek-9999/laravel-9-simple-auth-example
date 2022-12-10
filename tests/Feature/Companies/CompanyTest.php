@@ -18,17 +18,14 @@ class CompanyTest extends TestCase
      *
      * @return void
      */
-    public function test_company_succesfull_read()
+    public function test_company_successful_read()
     {
         // this test depends on previous companies seeding
         $this->seed(
             CompanySeeder::class
         );
-
-
-        $company = Company::where('active', 1)->first();
-        $this->assertEquals(1, $company->id);
+        $company = Company::first();
         $this->assertEquals('PuertaLogic', $company->name);
-        $this->assertEquals(1, $company->active);
+        $this->assertEquals(0, $company->active);
     }
 }
