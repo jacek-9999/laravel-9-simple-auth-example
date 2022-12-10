@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,8 +29,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+        $unlogged =  User::where('email', $request->get('email'))->first();
+        if (!$unlogged->verified || !$unlogged->active || !$unlogged->hasActiveCompany())
+        {
+            Session::flash('flash_message_danger', 'Konto nie jest zweryfikowane, aktywne bądź nie posiada aktywnej firmy');
+            return redirect('/');
+        }
         $request->authenticate();
-        \auth()->user()->activateCompany();
 
         $request->session()->regenerate();
 
@@ -44,7 +50,6 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        \auth()->user()->deactivateCompany();
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

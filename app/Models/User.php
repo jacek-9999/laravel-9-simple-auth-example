@@ -46,22 +46,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function activateCompany()
+    public function hasActiveCompany(): bool
     {
-        if (!$this->company) {
+        if (!$this->company || !$this->company->first()->active) {
             return false;
         }
-        $this->company->active = true;
-        return $this->company->save();
-    }
-
-    public function deactivateCompany()
-    {
-        if (!$this->company) {
-            return false;
-        }
-        $this->company->active = false;
-        return $this->company->save();
+        return true;
     }
 
     public function company()

@@ -26,6 +26,6 @@ class CompanyTest extends TestCase
         );
         $company = Company::first();
         $this->assertEquals('PuertaLogic', $company->name);
-        $this->assertEquals(0, $company->active);
+        $this->assertEquals(1, $company->active);
     }
 }
