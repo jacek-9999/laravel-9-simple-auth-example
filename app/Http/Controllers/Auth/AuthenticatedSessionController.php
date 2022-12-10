@@ -30,9 +30,9 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
     {
         $unlogged =  User::where('email', $request->get('email'))->first();
-        if (!$unlogged->verified || !$unlogged->active || !$unlogged->hasActiveCompany())
+        if (($unlogged->role === 'user') && (!$unlogged->verified || !$unlogged->active || !$unlogged->hasActiveCompany()))
         {
-            Session::flash('flash_message_danger', 'Konto nie jest zweryfikowane, aktywne bądź nie posiada aktywnej firmy');
+            Session::flash('flash_message_danger', 'Konto nie jest zweryfikowane, nie jest aktywne, nie posiada aktywnej firmy lub nie ma roli użytkownika');
             return redirect('/');
         }
         $request->authenticate();

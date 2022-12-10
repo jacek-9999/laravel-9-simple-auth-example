@@ -110,10 +110,8 @@ class AuthenticationTest extends TestCase
         $this->seed(
             CompanySeeder::class
         );
-        $company = Company::first();
         $user->company_id = null;
         $user->save();
-
         $this->assertTrue($user->active);
         $this->assertTrue($user->verified);
         $this->assertFalse($user->hasActiveCompany());
