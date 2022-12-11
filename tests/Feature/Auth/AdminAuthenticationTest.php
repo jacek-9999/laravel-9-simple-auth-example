@@ -27,8 +27,13 @@ use App\Models\Company;
               'role' => 'admin'
             ];
         })->create();
+        $user->active = false;
+        $user->verified = false;
+        $user->save();
 
-
+        $user->refresh();
+        $this->assertFalse((boolean)$user->active);
+        $this->assertFalse((boolean)$user->verified);
         $response = $this->post('/login', [
             'email' => $user->email,
             'password' => 'password',
