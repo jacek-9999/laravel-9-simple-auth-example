@@ -50,4 +50,11 @@ use App\Models\Company;
 
         $this->assertGuest();
     }
+
+    public function test_dashboard_is_not_accesible_without_authentication()
+    {
+
+        $response = $this->get('/dashboard');
+        $response->assertRedirect('/login');
+    }
 }

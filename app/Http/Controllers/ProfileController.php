@@ -64,4 +64,10 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function dashboard(Request $request)
+    {
+        $user = $request->user();
+        return view('dashboard')->with('company', $user->company->first()->name);
+    }
 }
