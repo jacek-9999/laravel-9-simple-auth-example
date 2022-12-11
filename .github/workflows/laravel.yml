@@ -31,6 +31,8 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
+    - name: installing npm dependencies
+      run: npm install
     - name: prepare views with Vite
       run: npm run build
     - name: Execute tests (Unit and Feature tests) via PHPUnit
